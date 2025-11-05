@@ -34,18 +34,17 @@ services:
 
     envVars:
       # Tell nsflow where the server is (private network host + port of the neuro-san *web* service)
+      # nsflow env vars (use external URL/hostname)
       - key: NEURO_SAN_SERVER_CONNECTION
-        value: http
+        value: https
       - key: NEURO_SAN_SERVER_HOST
         fromService:
           name: neuro-san
           type: web
-          property: host
+          envVarKey: RENDER_EXTERNAL_HOSTNAME   # e.g. neuro-san.onrender.com
       - key: NEURO_SAN_SERVER_HTTP_PORT
-        fromService:
-          name: neuro-san
-          type: web
-          property: port
+        value: "443"                            # HTTPS default
+
 
       # nsflow own settings
       - key: NSFLOW_HOST
