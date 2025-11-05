@@ -1,0 +1,53 @@
+# render.yaml  (repo root)
+
+services:
+  # 1) neuro-san: backend server (Docker)
+  - type: web
+    name: neuro-san
+    runtime: docker
+    plan: free
+    region: oregon
+    branch: main
+    dockerContext: .
+    dockerfilePath: ./deploy/Dockerfile
+    autoDeploy: true
+    # healthCheckPath: /health  # set if you expose one
+
+    # No need to set AGENT_HTTP_PORT here; entrypoint uses $PORT if present.
+    envVars:
+      - key: AGENT_SERVER_NAME_FOR_LOGS
+        value: "Agent Server (Render)"
+
+  # 2) nsflow: client UI/API (Python) that calls neuro-san
+  - type: web
+    name: nsflow
+    runtime: python
+    plan: free
+    region: oregon
+    branch: main
+    buildCommand: |
+      pip install -r requirements.txt
+    startCommand: |
+      uvicorn nsflow.backend.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /
+    autoDeploy: true
+
+    envVars:
+      # Tell nsflow where the server is (private network host + port of the neuro-san *web* service)
+      - key: NEURO_SAN_SERVER_CONNECTION
+        value: http
+      - key: NEURO_SAN_SERVER_HOST
+        fromService:
+          name: neuro-san
+          type: web
+          property: host
+      - key: NEURO_SAN_SERVER_HTTP_PORT
+        fromService:
+          name: neuro-san
+          type: web
+          property: port
+
+      # nsflow own settings
+      - key: NSFLOW_HOST
+        value: 0.0.0.0
+      # NSFLOW_PORT is *not* required; uvicorn uses $PORT from startCommand.
