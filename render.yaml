@@ -45,8 +45,6 @@ services:
       - key: NEURO_SAN_SERVER_HTTP_PORT
         value: "443"                            # HTTPS default
 
-
-      # nsflow own settings
-      - key: NSFLOW_HOST
-        value: 0.0.0.0
-      # NSFLOW_PORT is *not* required; uvicorn uses $PORT from startCommand.
+      # NSFLOW_HOST & NSFLOW_PORT are *NOT* required
+      # React app tries to use same-origin first (window.location.origin) and 
+      # uvicorn uses $PORT from startCommand.
