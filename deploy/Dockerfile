@@ -36,7 +36,6 @@ RUN pip3 install --upgrade pip==${PIP3_VERSION} --no-cache-dir
 
 # Having a requirements.txt file for your coded_tool dependencies is optional
 COPY ./requirements.txt ${APP_SOURCE}/requirements.txt
-COPY ./wheels/nsflow-0.6.3.dev2+g4629959.d20251105-py3-none-any.whl ${APP_SOURCE}/wheels/nsflow-0.6.3.dev2+g4629959.d20251105-py3-none-any.whl
 # Move the work dir to the app source to find the requirements.
 WORKDIR ${APP_SOURCE}
 RUN if [ -f ${APP_SOURCE}/requirements.txt ]; \
