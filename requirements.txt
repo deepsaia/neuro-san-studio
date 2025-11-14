@@ -1,7 +1,7 @@
 # Neuro SAN
 neuro-san==0.6.5
 # nsflow==0.6.2
-wheels/nsflow-0.6.3.dev2+g4629959.d20251105-py3-none-any.whl
+nsflow==0.6.3
 
 # For the airline_policy demo, to extract text from documents
 pypdf>=6.1.3
