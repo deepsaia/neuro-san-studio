@@ -95,7 +95,8 @@ COPY --from=builder /install /usr/local
 # Copy application code and necessary files
 # Note: The registries directory where agent definitions live is mandatory
 #       The coded_tools directory where agent code lives is optional
-COPY ./registries ${APP_SOURCE}/registries
+# writable registries for user modifications
+COPY --chown=${USERNAME}:${USERNAME} ./registries ${APP_SOURCE}/registries
 COPY ./coded_tool[s] ${APP_SOURCE}/coded_tools
 COPY ./mcp ${APP_SOURCE}/mcp
 COPY ./toolbox ${APP_SOURCE}/toolbox
