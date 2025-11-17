@@ -95,8 +95,11 @@ COPY --from=builder /install /usr/local
 # Copy application code and necessary files
 # Note: The registries directory where agent definitions live is mandatory
 #       The coded_tools directory where agent code lives is optional
-COPY ./registries ${APP_SOURCE}/registries
+# writable registries for user modifications
+COPY --chown=${USERNAME}:${USERNAME} ./registries ${APP_SOURCE}/registries
 COPY ./coded_tool[s] ${APP_SOURCE}/coded_tools
+COPY ./mcp ${APP_SOURCE}/mcp
+COPY ./toolbox ${APP_SOURCE}/toolbox
 COPY ./deploy/entrypoint.sh ${APP_SOURCE}/deploy/entrypoint.sh
 COPY ./deploy/logging.json ${APP_SOURCE}/deploy/logging.json
 
@@ -118,7 +121,7 @@ ENV PYTHONPATH=${APP_SOURCE}
 
 # Where to find the tool registry manifest file which lists all the agent hocon
 # files to serve up from this server instance.
-ENV AGENT_MANIFEST_FILE=${APP_SOURCE}/registries/manifest_deploy.hocon
+ENV AGENT_MANIFEST_FILE=${APP_SOURCE}/registries/manifest.hocon
 
 # An llm_info hocon file with user-provided llm descriptions that are to be used
 # in addition to the neuro-san defaults.

@@ -21,6 +21,8 @@
 
 cat /etc/os-release
 
+export AGENT_HTTP_PORT="${AGENT_HTTP_PORT:-${PORT:-8080}}"
+
 PYTHON=python3
 echo "Using python ${PYTHON}"
 

@@ -8,8 +8,13 @@ agents without code, this studio handles the orchestration complexity so you can
 
 <!-- pyml disable-next-line no-inline-html -->
 <p align="center">
+  <a href="https://render.com/deploy?repo=https://github.com/deepsaia/neuro-san-studio">
+  <img src="https://render.com/images/deploy-to-render-button.svg" /
+  alt="Launch Neuro-San" width="160" height="30"/
+  ></a>
   <a href="https://deepwiki.com/cognizant-ai-lab/neuro-san-studio">
-  <img src="https://deepwiki.com/badge.svg" alt="Ask DeepWiki: Neuro SAN Studio" /></a>
+  <img src="https://deepwiki.com/badge.svg" /
+  alt="Ask DeepWiki: Neuro SAN Studio" width="160" height="30"/></a>
 </p>
 
 ---
